@@ -16,5 +16,5 @@ fi
 version="${major}.${minor}.${patch}"
 echo "Bumped to $version"
 /usr/libexec/PlistBuddy -c "Set CFBundleShortVersionString ${version}" $pathToPlist
-git commit -m "Bump version to $version"
+git commit -m "Bump version to $version" $pathToPlist
 git push
