@@ -1,10 +1,7 @@
-component=$1
-
+component=${1:-"patch"}
 version=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Info.plist)
 IFS="." read major minor patch <<< "$version"
-
-echo "$version"
-
+echo "Bumping $component of $version"
 if [[ "$component" = 'major' ]]; then
     major=$((major + 1))
     minor=0
@@ -15,9 +12,6 @@ elif [[ "$component" = 'minor' ]]; then
 elif [[ "$component" = 'patch' ]]; then
     patch=$((patch + 1))
 fi
-
 version="${major}.${minor}.${patch}"
-
-echo "$version"
-
+echo "Bumped to $version"
 /usr/libexec/PlistBuddy -c "Set CFBundleShortVersionString ${version}" Info.plist
