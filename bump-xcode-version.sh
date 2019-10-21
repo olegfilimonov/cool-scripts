@@ -1,4 +1,5 @@
 component=${1:-"patch"}
+pathToPlist=${1:-"Info.plist"}
 version=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Info.plist)
 IFS="." read major minor patch <<< "$version"
 echo "Bumping $component of $version"
@@ -14,4 +15,6 @@ elif [[ "$component" = 'patch' ]]; then
 fi
 version="${major}.${minor}.${patch}"
 echo "Bumped to $version"
-/usr/libexec/PlistBuddy -c "Set CFBundleShortVersionString ${version}" Info.plist
+/usr/libexec/PlistBuddy -c "Set CFBundleShortVersionString ${version}" $pathToPlist
+git commit -m "Bump version to $version"
+git push
