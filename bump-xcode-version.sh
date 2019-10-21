@@ -1,5 +1,5 @@
 component=${1:-"patch"}
-pathToPlist=${1:-"Info.plist"}
+pathToPlist=${2:-"Info.plist"}
 version=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Info.plist)
 IFS="." read major minor patch <<< "$version"
 echo "Bumping $component of $version"
